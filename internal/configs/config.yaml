@@ -1,0 +1,6 @@
+service:
+  port: ":8083"
+  secretJWT: "fastcampus"
+
+database:
+  dataSourceName: "root:superSecretPassword@tcp(localhost:3306)/situs_forum?parseTime=true"

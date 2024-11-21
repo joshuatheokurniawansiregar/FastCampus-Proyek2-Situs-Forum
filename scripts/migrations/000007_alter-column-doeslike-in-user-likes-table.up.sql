@@ -1,0 +1,1 @@
+ALTER TABLE user_likes RENAME COLUMN does_like TO is_liked
