@@ -41,8 +41,8 @@ type(
 	}
 
 	Pagination struct{
-		Limit int
-		Offset int `json:"offset"`
+		Limit int64 `json:"limit"`
+		Offset int64 `json:"offset"`
 	}
 
 	GetPostResponse struct{

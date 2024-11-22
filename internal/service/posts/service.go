@@ -10,6 +10,9 @@ import (
 type postsRepository interface {
 	CreatePost(ctx context.Context, model posts.PostModel) error
 	CreateComment(ctx context.Context,  model posts.CommentModel) error
+	CreateUserLike(ctx context.Context, userLikesModel posts.UserLikesModel)error
+	UpdateUserLike(ctx context.Context, userLikesModel posts.UserLikesModel)error
+	GetAllPosts(ctx context.Context, limit, offset int64)(posts.GetAllPostsResponse, error)
 }
 
 type service struct{

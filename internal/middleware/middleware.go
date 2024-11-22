@@ -21,7 +21,7 @@ func AuthMiddleware() gin.HandlerFunc{
 			return
 		}
 
-		userId, userName, err := jwt.ValidateToken(header, secretKey)
+		userId, userName, expiry, err := jwt.ValidateToken(header, secretKey)
 		if err != nil{
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"error":err.Error(),
@@ -30,6 +30,7 @@ func AuthMiddleware() gin.HandlerFunc{
 		}
 		c.Set("userid", userId)
 		c.Set("username", userName)
+		c.Set("expiry", expiry)
 		c.Next()
 	}
 }

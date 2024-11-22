@@ -19,7 +19,7 @@ func (h *Handler) CreateComment(c *gin.Context){
 		return
 	}
 
-	var postIdString string = c.Request.URL.Query().Get("postId") 
+	var postIdString string = c.Request.URL.Query().Get("postid") 
 	postIdInt64, err := strconv.ParseInt(postIdString, 10, 64)
 	if err != nil{
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -29,6 +29,7 @@ func (h *Handler) CreateComment(c *gin.Context){
 	}
 
 	var userId int64 = c.GetInt64("userid")
+	// var expiry int64 = c.GetInt64("expiry")
 	err = h.postsSvc.CreateComment(context,userId,postIdInt64, createCommentRequest)
 	if err != nil{
 		c.JSON(http.StatusInternalServerError, gin.H{
