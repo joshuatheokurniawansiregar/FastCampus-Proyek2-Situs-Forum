@@ -37,7 +37,9 @@ type(
 		PostTitle string `json:"postTitle"`
 		PostContent string `json:"postContent"`
 		PostHashTags []string `json:"postHashTags"`
-		IsLiked bool `json:"isLiked"`
+		CreatedAt time.Time `json:"createdAt"`
+		LikesTotal int64 `json:"likesTotal"`
+		Comments []Comment `json:"comments"`
 	}
 
 	Pagination struct{

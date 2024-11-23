@@ -2,7 +2,6 @@ package posts
 
 import (
 	"context"
-	"log"
 
 	"github.com/joshuatheokurniawansiregar/FastCampus-Proyek2-Situs-Forum/internal/models/posts"
 )
@@ -21,9 +20,5 @@ func (s *service) GetAllPosts(ctx context.Context, pageSize, pageNumber int64)(p
 	if err != nil{
 		return allPostsResponse, err
 	}
-	log.Println("pagesize",pageSize)
-	log.Println("pagenumber",pageNumber)
-	log.Println("limit",limit)
-	log.Println("offset", offset)
 	return allPostsResponse, nil
 }

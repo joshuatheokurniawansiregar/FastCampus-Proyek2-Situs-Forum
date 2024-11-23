@@ -2,6 +2,7 @@ package posts
 
 import (
 	"context"
+	"database/sql"
 	"strings"
 
 	"github.com/joshuatheokurniawansiregar/FastCampus-Proyek2-Situs-Forum/internal/models/posts"
@@ -18,8 +19,6 @@ func (r *repository) CreatePost(ctx context.Context, model posts.PostModel)error
 
 func (r *repository) GetAllPosts(ctx context.Context, limit, offset int64)(posts.GetAllPostsResponse, error){
 	query:= `SELECT p.id, p.user_id, u.user_name, p.post_title, p.post_content, p.hashtag, p.created_at, p.updated_at, p.created_by, p.updated_by FROM posts p INNER JOIN users u ON p.user_id = u.id ORDER BY p.updated_at DESC LIMIT ? OFFSET ?`
-	
-
 	var response posts.GetAllPostsResponse
 	rows, err := r.db.QueryContext(ctx, query, limit, offset)
 	if err != nil{
@@ -49,4 +48,29 @@ func (r *repository) GetAllPosts(ctx context.Context, limit, offset int64)(posts
 		Offset: offset,
 	}
 	return response, nil
+}
+
+func(r *repository) GetPostById(ctx context.Context, postId int64)(posts.Post, error){
+	var(
+		query string
+		userName string
+		post posts.Post
+		postModel posts.PostModel
+		row *sql.Row
+		err error
+	)
+	query = `SELECT p.id, p.user_id, u.user_name, p.post_title, p.post_content, p.hashtag, p.created_at FROM posts p JOIN users u WHERE p.id=?`
+	row = r.db.QueryRowContext(ctx, query, postId)
+	err = row.Scan(&postModel.ID, &postModel.UserId, &userName, &postModel.PostTitle, &postModel.PostContent, &postModel.PostHashtags, &post.CreatedAt)
+	if err != nil{
+		return post, err
+	}
+	post.ID = postModel.ID
+	post.UserId = postModel.UserId
+	post.Username = userName
+	post.PostTitle = postModel.PostTitle
+	post.PostContent = postModel.PostContent
+	post.PostHashTags = strings.Split(postModel.PostHashtags, ",")
+	post.CreatedAt = postModel.CreatedAt
+	return post, nil
 }

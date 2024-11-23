@@ -17,7 +17,7 @@ func (r *repository) CreateComment(ctx context.Context,  model posts.CommentMode
 
 func (r *repository) GetCommentsByPostIdID(ctx context.Context, postId int64)([]posts.Comment, error){
 	query := `SELECT c.id, c.user_id, c.comments, u.user_name
-	FROM comments c JOIN users u ON c.user_id = u.id WHERE`
+	FROM comments c JOIN users u ON c.user_id = u.id WHERE c.post_id=?`
 
 	rows, err := r.db.QueryContext(ctx, query, postId)
 	if err != nil{

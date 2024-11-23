@@ -2,6 +2,7 @@ package posts
 
 import (
 	"context"
+	"database/sql"
 	"log"
 
 	"github.com/joshuatheokurniawansiregar/FastCampus-Proyek2-Situs-Forum/internal/models/posts"
@@ -25,4 +26,20 @@ func(r *repository) UpdateUserLike(ctx context.Context, userLikesModel posts.Use
 		return err
 	}
 	return nil
+}
+
+func(r *repository) CountUserLikesByPostId(ctx context.Context, postId int64)(int64, error){
+	var(
+		query string
+		count int64
+		row *sql.Row
+		err error
+	)
+	query = `SELECT COUNT(is_liked) FROM user_likes WHERE post_id=?`
+	row = r.db.QueryRowContext(ctx, query, postId)
+	err = row.Scan(&count)
+	if err != nil{
+		return 0, err
+	}
+	return count, nil
 }

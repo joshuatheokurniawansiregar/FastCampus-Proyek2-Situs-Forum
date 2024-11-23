@@ -14,6 +14,7 @@ type postsService interface {
 	CreateUserLike(ctx context.Context, userId int64, postId int64, request posts.UserLikeRequest)error
 	UpdateUserLike(ctx context.Context, userId int64, postId int64, request posts.UserLikeRequest)error
 	GetAllPosts(ctx context.Context, pageSize, pageNumber int64)(posts.GetAllPostsResponse, error)
+	GetPostById(ctx context.Context, postId int64)(posts.Post,error)
 }
 
 type Handler struct{
@@ -31,7 +32,8 @@ func NewHandler(api *gin.Engine, postsSvc postsService)*Handler{
 func(handler *Handler) RegisterRoute(){
 	route:= handler.Group("posts")
 	route.Use(middleware.AuthMiddleware())
-	route.GET("/allposts",handler.GetAllPosts)
+	route.GET("/",handler.GetAllPosts)
+	route.GET("/by_id", handler.GetPostById)
 	route.POST("/create", handler.CreatePost)
 	route.POST("/comments/create", handler.CreateComment)
 	route.POST("user_likes/create", handler.CreateUserLike)
