@@ -10,6 +10,7 @@ import (
 )
 
 func (h *Handler) GetPostById(c *gin.Context){
+	
 	var(
 		context context.Context
 		postIdString string
@@ -17,7 +18,9 @@ func (h *Handler) GetPostById(c *gin.Context){
 		post posts.Post
 		err error
 	)
+	
 	context = c.Request.Context()
+
 	postIdString = c.Request.URL.Query().Get("postid")
 	postId,err = strconv.ParseInt(postIdString, 10, 64)
 	if err != nil{

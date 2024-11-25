@@ -32,7 +32,7 @@ func (h *Handler) UpdateUserLike(c *gin.Context){
 			"error": err.Error(),
 		})
 	}
-	var userId int64 = c.GetInt64("userid")
+	var userId int64 = c.GetInt64("userId")
 	err = h.postsSvc.UpdateUserLike(context, userId, postIdInt64, userLikeRequest)
 	if err != nil{
 		c.JSON(http.StatusInternalServerError, gin.H{

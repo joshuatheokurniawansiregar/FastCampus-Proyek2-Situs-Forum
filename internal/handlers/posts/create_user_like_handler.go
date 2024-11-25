@@ -31,7 +31,7 @@ func (h *Handler) CreateUserLike(c *gin.Context){
 		return
 	}
 
-	var userId = c.GetInt64("userid")
+	var userId = c.GetInt64("userId")
 	err = h.postsSvc.CreateUserLike(context, userId, postIdInt64, userLikeRequest)
 	if err != nil{
 		c.JSON(http.StatusInternalServerError, gin.H{

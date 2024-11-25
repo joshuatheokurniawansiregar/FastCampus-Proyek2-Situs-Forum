@@ -22,10 +22,11 @@ func (h *Handler) Login(c *gin.Context){
 		return
 	}
 	
-	accessToken, err := h.membershipsSvc.Login(ctx, request)
+	accessToken, refreshToken, err := h.membershipsSvc.Login(ctx, request)
 
 	var response memberships.LoginResponse = memberships.LoginResponse{
 		AccessToken: accessToken,
+		RefreshToken: refreshToken,
 	}
 
 	if err != nil{

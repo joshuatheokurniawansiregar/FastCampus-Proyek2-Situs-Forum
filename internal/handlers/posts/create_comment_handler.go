@@ -28,8 +28,7 @@ func (h *Handler) CreateComment(c *gin.Context){
 		return
 	}
 
-	var userId int64 = c.GetInt64("userid")
-	// var expiry int64 = c.GetInt64("expiry")
+	var userId int64 = c.GetInt64("userId")
 	err = h.postsSvc.CreateComment(context,userId,postIdInt64, createCommentRequest)
 	if err != nil{
 		c.JSON(http.StatusInternalServerError, gin.H{

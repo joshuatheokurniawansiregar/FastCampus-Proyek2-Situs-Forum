@@ -26,7 +26,7 @@ type (
 
 type(
 	GetAllPostsResponse struct{
-		Data []Post `json:"data"`
+		Data []Post `json:"posts"`
 		Pagination Pagination `json:"pagination"`
 	}
 

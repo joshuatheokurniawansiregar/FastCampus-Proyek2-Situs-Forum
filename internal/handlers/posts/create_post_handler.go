@@ -19,7 +19,7 @@ func (handler *Handler) CreatePost(c *gin.Context) {
 		return
 	}
 	
-	var userId int64 = c.GetInt64("userid")
+	var userId int64 = c.GetInt64("userId")
 	var err error = handler.postsSvc.CreatePost(context,userId,request)
 	if err != nil{
 		c.JSON(http.StatusInternalServerError, gin.H{
